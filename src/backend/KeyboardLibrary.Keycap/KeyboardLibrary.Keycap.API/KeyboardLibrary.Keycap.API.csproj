@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KeyboardLibrary.Keycap.Service\KeyboardLibrary.Keycap.Service.csproj" />
+    <ProjectReference Include="..\KeyboardLibrary.Keycap.Repository\KeyboardLibrary.Keycap.Repository.csproj" />
+    <ProjectReference Include="..\KeyboardLibrary.Keycap.Domain\KeyboardLibrary.Keycap.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

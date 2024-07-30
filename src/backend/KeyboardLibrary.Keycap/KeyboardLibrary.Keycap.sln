@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLibrary.Keycap.API", "KeyboardLibrary.Keycap.API\KeyboardLibrary.Keycap.API.csproj", "{1FF40C91-1F3D-4EDD-8E76-BAD7D5ECCB26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLibrary.Keycap.Domain", "KeyboardLibrary.Keycap.Domain\KeyboardLibrary.Keycap.Domain.csproj", "{E6DFA76D-EB99-42DD-A35E-D08CEA4DE4CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLibrary.Keycap.Repository", "KeyboardLibrary.Keycap.Repository\KeyboardLibrary.Keycap.Repository.csproj", "{BCC04A50-016B-4285-91AA-3C13888F12A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLibrary.Keycap.Service", "KeyboardLibrary.Keycap.Service\KeyboardLibrary.Keycap.Service.csproj", "{37585178-0CB0-4FDF-9D8E-16857ABB0BF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +18,23 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FF40C91-1F3D-4EDD-8E76-BAD7D5ECCB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF40C91-1F3D-4EDD-8E76-BAD7D5ECCB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF40C91-1F3D-4EDD-8E76-BAD7D5ECCB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF40C91-1F3D-4EDD-8E76-BAD7D5ECCB26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6DFA76D-EB99-42DD-A35E-D08CEA4DE4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6DFA76D-EB99-42DD-A35E-D08CEA4DE4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6DFA76D-EB99-42DD-A35E-D08CEA4DE4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6DFA76D-EB99-42DD-A35E-D08CEA4DE4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCC04A50-016B-4285-91AA-3C13888F12A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCC04A50-016B-4285-91AA-3C13888F12A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCC04A50-016B-4285-91AA-3C13888F12A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCC04A50-016B-4285-91AA-3C13888F12A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37585178-0CB0-4FDF-9D8E-16857ABB0BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37585178-0CB0-4FDF-9D8E-16857ABB0BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37585178-0CB0-4FDF-9D8E-16857ABB0BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37585178-0CB0-4FDF-9D8E-16857ABB0BF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,3 +1,5 @@
+using KeyboardLibrary.Keycap.Service;
+using KeyboardLibrary.Keycap.Repository;
 
 namespace KeyboardLibrary.Keycap.API;
 
@@ -7,7 +9,11 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
         // Add services to the container.
+        builder.Services.AddKeycapServices();
+        builder.Services.AddKeycapRepository(connectionString ?? string.Empty);
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
