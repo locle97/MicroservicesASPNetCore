@@ -33,4 +33,29 @@ public class KeycapsController : ControllerBase
 
       return Ok(keycap);
     }
+
+    [HttpPost(Name = "CreateKeycap")]
+    public async Task<IActionResult> Create(KeycapEntity keycap)
+    {
+      KeycapEntity newKeycap = await _keycapService.Create(keycap);
+      return Ok(newKeycap);
+    }
+
+    [HttpPut(Name = "UpdateKeycap")]
+    public async Task<IActionResult> Update(KeycapEntity keycap)
+    {
+      KeycapEntity updatedKeycap = await _keycapService.Update(keycap);
+      if (updatedKeycap == null)
+        return NotFound("Keycap not found");
+      return Ok(updatedKeycap);
+    }
+
+    [HttpDelete("{id}", Name = "DeleteKeycap")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      bool deleted = await _keycapService.Delete(id);
+      if (!deleted)
+        return NotFound("Keycap not found");
+      return Ok();
+    }
 }

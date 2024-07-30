@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace KeyboardLibrary.Keycap.Repository.Interfaces
+namespace KeyboardLibrary.Base.Repositories
 {
   public interface IBaseRepository<T> where T : class
   {

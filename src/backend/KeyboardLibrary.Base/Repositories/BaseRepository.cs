@@ -1,8 +1,8 @@
+
 using System.Linq.Expressions;
-using KeyboardLibrary.Keycap.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace KeyboardLibrary.Keycap.Repository.Repositories
+namespace KeyboardLibrary.Base.Repositories
 {
   public class BaseRepository<TDbContext, T>: IBaseRepository<T> 
     where T: class 
