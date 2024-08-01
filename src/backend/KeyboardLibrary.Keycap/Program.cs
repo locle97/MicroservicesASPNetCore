@@ -1,14 +1,15 @@
-using KeyboardLibrary.Keycap.Service;
-using KeyboardLibrary.Keycap.Repository;
 
-namespace KeyboardLibrary.Keycap.API;
+using KeyboardLibrary.Keycap.Repositories;
+using KeyboardLibrary.Keycap.Services;
+using Microsoft.EntityFrameworkCore;
+
+namespace KeyboardLibrary.Keycap;
 
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         // Add services to the container.
@@ -37,5 +38,24 @@ public class Program
         app.MapControllers();
 
         app.Run();
+    }
+}
+
+internal static class DependencyInjection
+{
+    public static IServiceCollection AddKeycapRepository(this IServiceCollection services, string connectionString)
+    {
+      services.AddDbContext<KeycapDbContext>(options => {
+        options.UseSqlServer(connectionString);
+      });
+
+      services.AddScoped<IKeycapRepository, KeycapRepository>();
+      return services;
+    }
+
+    public static IServiceCollection AddKeycapServices(this IServiceCollection services)
+    {
+        services.AddScoped<IKeycapService, KeycapService>();
+        return services;
     }
 }

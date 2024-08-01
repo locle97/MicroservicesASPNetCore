@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace KeyboardLibrary.Keycap.Repository.Migrations
+namespace KeyboardLibrary.Keycap.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

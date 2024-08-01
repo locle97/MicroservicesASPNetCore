@@ -1,7 +1,7 @@
 using KeyboardLibrary.Keycap.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace KeyboardLibrary.Keycap.Repository
+namespace KeyboardLibrary.Keycap
 {
   public class KeycapDbContext: DbContext
   {

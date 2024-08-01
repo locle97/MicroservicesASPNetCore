@@ -1,8 +1,8 @@
 using KeyboardLibrary.Keycap.Domain.Entities;
-using KeyboardLibrary.Keycap.Service.Interfaces;
+using KeyboardLibrary.Keycap.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KeyboardLibrary.Keycap.API.Controllers;
+namespace KeyboardLibrary.Keycap.Controlles;
 
 [ApiController]
 [Route("[controller]")]

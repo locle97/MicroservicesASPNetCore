@@ -1,8 +1,7 @@
 using KeyboardLibrary.Keycap.Domain.Entities;
-using KeyboardLibrary.Keycap.Repository.Interfaces;
-using KeyboardLibrary.Keycap.Service.Interfaces;
+using KeyboardLibrary.Keycap.Repositories;
 
-namespace KeyboardLibrary.Keycap.Service.Services
+namespace KeyboardLibrary.Keycap.Services
 {
     public class KeycapService : IKeycapService
     {
@@ -15,32 +14,29 @@ namespace KeyboardLibrary.Keycap.Service.Services
 
       public async Task<KeycapEntity> Create(KeycapEntity keycap)
       {
-        return await _keycapRepository.AddAsync(keycap);
+        return await _keycapRepository.Create(keycap);
       }
 
       public async Task<bool> Delete(int id)
       {
-        KeycapEntity entity = await _keycapRepository.GetAsync(id);
-        if (entity == null)
-          return false;
-
-        await _keycapRepository.RemoveAsync(entity);
+        await _keycapRepository.Delete(id);
         return true;
       }
 
         public async Task<KeycapEntity> Get(int id)
       {
-        return await _keycapRepository.GetAsync(id);
+        return await _keycapRepository.GetById(id);
       }
 
       public async Task<IEnumerable<KeycapEntity>> GetListKeycaps()
       {
-        return await _keycapRepository.GetAllAsync();
+        return await _keycapRepository.GetAll();
       }
 
       public Task<KeycapEntity> Update(KeycapEntity keycap)
       {
-        return _keycapRepository.UpdateAsync(keycap);
+        return _keycapRepository.Update(keycap);
       }
     }
 }
+
