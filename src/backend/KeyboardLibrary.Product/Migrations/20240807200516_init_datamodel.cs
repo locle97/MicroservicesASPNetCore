@@ -5,7 +5,7 @@
 namespace KeyboardLibrary.Product.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class init_datamodel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,32 +32,32 @@ namespace KeyboardLibrary.Product.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KeycapId = table.Column<int>(type: "int", nullable: true),
-                    KeycapEntityId = table.Column<int>(type: "int", nullable: true)
+                    KeycapId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_KeycapImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_KeycapImages_Keycaps_KeycapEntityId",
-                        column: x => x.KeycapEntityId,
+                        name: "FK_KeycapImages_Keycaps_KeycapId",
+                        column: x => x.KeycapId,
                         principalTable: "Keycaps",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_KeycapImages_Keycaps_KeycapId",
-                        column: x => x.KeycapId,
+                        name: "FK_KeycapImages_Keycaps_KeycapId1",
+                        column: x => x.KeycapId1,
                         principalTable: "Keycaps",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_KeycapImages_KeycapEntityId",
-                table: "KeycapImages",
-                column: "KeycapEntityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_KeycapImages_KeycapId",
                 table: "KeycapImages",
                 column: "KeycapId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KeycapImages_KeycapId1",
+                table: "KeycapImages",
+                column: "KeycapId1");
         }
 
         /// <inheritdoc />

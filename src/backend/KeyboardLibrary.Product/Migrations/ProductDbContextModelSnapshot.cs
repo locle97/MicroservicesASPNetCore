@@ -22,7 +22,7 @@ namespace KeyboardLibrary.Product.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("KeyboardLibrary.Product.Domain.Entities.KeycapEntity", b =>
+            modelBuilder.Entity("KeyboardLibrary.Product.Domain.Entities.Keycap", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,10 +50,10 @@ namespace KeyboardLibrary.Product.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("KeycapEntityId")
+                    b.Property<int?>("KeycapId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KeycapId")
+                    b.Property<int?>("KeycapId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -62,27 +62,27 @@ namespace KeyboardLibrary.Product.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KeycapEntityId");
-
                     b.HasIndex("KeycapId");
+
+                    b.HasIndex("KeycapId1");
 
                     b.ToTable("KeycapImages", (string)null);
                 });
 
             modelBuilder.Entity("KeyboardLibrary.Product.Domain.Entities.KeycapImage", b =>
                 {
-                    b.HasOne("KeyboardLibrary.Product.Domain.Entities.KeycapEntity", null)
+                    b.HasOne("KeyboardLibrary.Product.Domain.Entities.Keycap", null)
                         .WithMany()
-                        .HasForeignKey("KeycapEntityId");
-
-                    b.HasOne("KeyboardLibrary.Product.Domain.Entities.KeycapEntity", "Keycap")
-                        .WithMany("Images")
                         .HasForeignKey("KeycapId");
+
+                    b.HasOne("KeyboardLibrary.Product.Domain.Entities.Keycap", "Keycap")
+                        .WithMany("Images")
+                        .HasForeignKey("KeycapId1");
 
                     b.Navigation("Keycap");
                 });
 
-            modelBuilder.Entity("KeyboardLibrary.Product.Domain.Entities.KeycapEntity", b =>
+            modelBuilder.Entity("KeyboardLibrary.Product.Domain.Entities.Keycap", b =>
                 {
                     b.Navigation("Images");
                 });
