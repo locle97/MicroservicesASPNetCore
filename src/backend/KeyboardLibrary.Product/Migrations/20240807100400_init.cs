@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace KeyboardLibrary.Keycap.Migrations
+namespace KeyboardLibrary.Product.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

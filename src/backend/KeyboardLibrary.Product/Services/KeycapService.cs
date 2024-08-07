@@ -1,7 +1,7 @@
-using KeyboardLibrary.Keycap.Domain.Entities;
-using KeyboardLibrary.Keycap.Repositories;
+using KeyboardLibrary.Product.Domain.Entities;
+using KeyboardLibrary.Product.Repositories;
 
-namespace KeyboardLibrary.Keycap.Services
+namespace KeyboardLibrary.Product.Services
 {
     public class KeycapService : IKeycapService
     {
@@ -12,7 +12,7 @@ namespace KeyboardLibrary.Keycap.Services
           _keycapRepository = keycapRepository;
       }
 
-      public async Task<KeycapEntity> Create(KeycapEntity keycap)
+      public async Task<Keycap> Create(Keycap keycap)
       {
         return await _keycapRepository.Create(keycap);
       }
@@ -23,17 +23,17 @@ namespace KeyboardLibrary.Keycap.Services
         return true;
       }
 
-        public async Task<KeycapEntity> Get(int id)
+        public async Task<Keycap> Get(int id)
       {
         return await _keycapRepository.GetById(id);
       }
 
-      public async Task<IEnumerable<KeycapEntity>> GetListKeycaps()
+      public async Task<IEnumerable<Keycap>> GetListKeycaps()
       {
         return await _keycapRepository.GetAll();
       }
 
-      public Task<KeycapEntity> Update(KeycapEntity keycap)
+      public Task<Keycap> Update(Keycap keycap)
       {
         return _keycapRepository.Update(keycap);
       }

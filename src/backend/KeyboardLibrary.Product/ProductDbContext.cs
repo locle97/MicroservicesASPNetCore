@@ -1,18 +1,18 @@
-using KeyboardLibrary.Keycap.Domain.Entities;
+using KeyboardLibrary.Product.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace KeyboardLibrary.Keycap
+namespace KeyboardLibrary.Product
 {
-  public class KeycapDbContext: DbContext
+  public class ProductDbContext: DbContext
   {
-    public DbSet<KeycapEntity> Keycaps { get; set; }
+    public DbSet<Keycap> Keycaps { get; set; }
     public DbSet<KeycapImage> KeycapImages { get; set; }
 
-    public KeycapDbContext(DbContextOptions<KeycapDbContext> options) : base(options)
+    public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
     {
     }
 
-    public KeycapDbContext()
+    public ProductDbContext()
     {
     }
 
@@ -23,9 +23,9 @@ namespace KeyboardLibrary.Keycap
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      modelBuilder.Entity<KeycapEntity>().ToTable("Keycaps");
+      modelBuilder.Entity<Keycap>().ToTable("Keycaps");
       modelBuilder.Entity<KeycapImage>().ToTable("KeycapImages");
-      modelBuilder.Entity<KeycapEntity>().HasMany<KeycapImage>().WithOne();
+      modelBuilder.Entity<Keycap>().HasMany<KeycapImage>().WithOne();
     }
   }
 }
