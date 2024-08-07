@@ -25,7 +25,9 @@ namespace KeyboardLibrary.Product
     {
       modelBuilder.Entity<Keycap>().ToTable("Keycaps");
       modelBuilder.Entity<KeycapImage>().ToTable("KeycapImages");
-      modelBuilder.Entity<Keycap>().HasMany<KeycapImage>().WithOne();
+      modelBuilder.Entity<Keycap>().HasMany<KeycapImage>()
+                                  .WithOne()
+                                  .HasForeignKey(k => k.KeycapId);
     }
   }
 }
