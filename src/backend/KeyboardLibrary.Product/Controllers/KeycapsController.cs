@@ -1,8 +1,8 @@
-using KeyboardLibrary.Keycap.Domain.Entities;
-using KeyboardLibrary.Keycap.Services;
+using KeyboardLibrary.Product.Domain.Entities;
+using KeyboardLibrary.Product.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KeyboardLibrary.Keycap.Controlles;
+namespace KeyboardLibrary.Product.Controlles;
 
 [ApiController]
 [Route("[controller]")]
@@ -20,14 +20,14 @@ public class KeycapsController : ControllerBase
     [HttpGet(Name = "GetListKeycaps")]
     public async Task<IActionResult> GetListKeycaps()
     {
-      IEnumerable<KeycapEntity> keycaps = await _keycapService.GetListKeycaps();
+      IEnumerable<Keycap> keycaps = await _keycapService.GetListKeycaps();
       return Ok(keycaps);
     }
 
     [HttpGet("{id}", Name = "GetKeycap")]
     public async Task<IActionResult> Get(int id)
     {
-      KeycapEntity keycap = await _keycapService.Get(id);
+      Keycap keycap = await _keycapService.Get(id);
       if (keycap == null)
         return NotFound("Keycap not found");
 
@@ -35,16 +35,16 @@ public class KeycapsController : ControllerBase
     }
 
     [HttpPost(Name = "CreateKeycap")]
-    public async Task<IActionResult> Create(KeycapEntity keycap)
+    public async Task<IActionResult> Create(Keycap keycap)
     {
-      KeycapEntity newKeycap = await _keycapService.Create(keycap);
+      Keycap newKeycap = await _keycapService.Create(keycap);
       return Ok(newKeycap);
     }
 
     [HttpPut(Name = "UpdateKeycap")]
-    public async Task<IActionResult> Update(KeycapEntity keycap)
+    public async Task<IActionResult> Update(Keycap keycap)
     {
-      KeycapEntity updatedKeycap = await _keycapService.Update(keycap);
+      Keycap updatedKeycap = await _keycapService.Update(keycap);
       if (updatedKeycap == null)
         return NotFound("Keycap not found");
       return Ok(updatedKeycap);

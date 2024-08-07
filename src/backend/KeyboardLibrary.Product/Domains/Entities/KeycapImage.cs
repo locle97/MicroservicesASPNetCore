@@ -1,4 +1,4 @@
-namespace KeyboardLibrary.Keycap.Domain.Entities
+namespace KeyboardLibrary.Product.Domain.Entities
 {
     public class KeycapImage
     {
@@ -8,6 +8,6 @@ namespace KeyboardLibrary.Keycap.Domain.Entities
 
       public int? KeycapId { get; set; }
 
-      public KeycapEntity? Keycap { get; set; }
+      public Keycap? Keycap { get; set; }
     }
 }

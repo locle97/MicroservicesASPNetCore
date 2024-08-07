@@ -1,9 +1,8 @@
-
-using KeyboardLibrary.Keycap.Repositories;
-using KeyboardLibrary.Keycap.Services;
+using KeyboardLibrary.Product.Repositories;
+using KeyboardLibrary.Product.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace KeyboardLibrary.Keycap;
+namespace KeyboardLibrary.Product;
 
 public class Program
 {
@@ -45,7 +44,7 @@ internal static class DependencyInjection
 {
     public static IServiceCollection AddKeycapRepository(this IServiceCollection services, string connectionString)
     {
-      services.AddDbContext<KeycapDbContext>(options => {
+      services.AddDbContext<ProductDbContext>(options => {
         options.UseSqlServer(connectionString);
       });
 

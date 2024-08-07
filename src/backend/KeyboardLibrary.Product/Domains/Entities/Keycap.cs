@@ -1,6 +1,6 @@
-namespace KeyboardLibrary.Keycap.Domain.Entities
+namespace KeyboardLibrary.Product.Domain.Entities
 {
-    public class KeycapEntity
+    public class Keycap
     {
       public int Id { get; set; }
 
