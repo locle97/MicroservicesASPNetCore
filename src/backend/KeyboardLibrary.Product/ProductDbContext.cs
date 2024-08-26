@@ -18,7 +18,7 @@ namespace KeyboardLibrary.Product
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Password=sa@123456;Database=Keycap;Trusted_Connection=False;TrustServerCertificate=True;");
+      optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Password=sa@123456;Database=Product;Trusted_Connection=False;TrustServerCertificate=True;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
