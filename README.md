@@ -26,7 +26,7 @@ The platform is built using a microservices architecture to ensure scalability, 
 
 ### Core Services
 
-1. **User Management Service**
+1. **Identity Service**
    - Handles user registration, authentication, and profile management.
    
 2. **Product Service**
