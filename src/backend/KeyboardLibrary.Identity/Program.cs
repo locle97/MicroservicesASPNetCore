@@ -2,7 +2,6 @@
 using KeyboardLibrary.Identity.Domains.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace KeyboardLibrary.Identity;
 

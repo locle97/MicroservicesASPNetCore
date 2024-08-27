@@ -8,6 +8,8 @@ services:
       MSSQL_PID: Developer
       ACCEPT_EULA: "Y"
       MSSQL_AGENT_ENABLED: "true"
+    volumes:
+        - ../data/sqlvolume:/var/opt/mssql
 networks:
   default:
     name: keyboard-network
