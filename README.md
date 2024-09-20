@@ -24,6 +24,10 @@ Welcome to the Mechanical Keyboard Enthusiasts Platform POC! This project is des
 
 The platform is built using a microservices architecture to ensure scalability, flexibility, and maintainability. Each service is independent and communicates with others through API calls.
 
+### Design Diagram
+
+![](./docs/high-level-design.png)
+
 ### Core Services
 
 1. **Identity Service**
