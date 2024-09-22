@@ -36,20 +36,20 @@ The main types are as follow:
 ### Examples
 
 Let say your application launched for a month, and as the metric showing
-the avarage is 2500 requests / hour => 100 requests / mins => 2 requests / s
+the avarage is 130_000 requests / hour => 6000 requests / mins => 100 requests / s
 
 With this metric we are going to run multiple test with specific number below:
 
 - Smoke test:
     - 1 request for each API
 - Load test:
-    - 100 requests in 1 minute.
+    - 3000 requests in 30s => 100 req / s
 - Stress test:
-    - 200 requests in 1 minute.
+    - 12000 requests in 1 minute => 200 req / s
 - Soak test:
-    - 500 requests in 5 minutes.
+    - 18000 requests in 3 minutes => 100 req / s
 - Spike test:
-    - 200 requests in 30s (higher 4 times than normal).
+    - 4000 req in 10s => 400 req / s
 
 ## Run on local
 
