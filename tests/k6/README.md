@@ -70,3 +70,9 @@ Run below command to start the first sample test case:
 ```sh
 k6 run script.js
 ```
+
+Run with k6 Dashboard
+
+```sh
+K6_WEB_DASHBOARD=true k6 run script.js 
+```
