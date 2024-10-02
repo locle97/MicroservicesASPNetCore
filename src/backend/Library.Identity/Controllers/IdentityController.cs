@@ -1,6 +1,7 @@
 using Library.Identity.Core;
 using Library.Identity.Core.Dtos;
 using Library.Identity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Identity.Controllers;
@@ -45,5 +46,12 @@ public class IdentityController : ControllerBase
 
         string createdToken = _tokenService.GenerateToken(user);
         return Ok(createdToken);
+    }
+
+    [Authorize]
+    [HttpGet("info", Name = "Info")]
+    public async Task<IActionResult> UserInfo() 
+    {
+        return Ok("User info");
     }
 }

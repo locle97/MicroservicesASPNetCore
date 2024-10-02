@@ -20,6 +20,7 @@ public class TokenService : ITokenService
         string secretKey = _configuration.GetSection("Jwt").GetValue<string>("SecretKey");
         string issuer = _configuration.GetSection("Jwt").GetValue<string>("Issuer");
         string audience = _configuration.GetSection("Jwt").GetValue<string>("Audience");
+        Console.WriteLine(audience);
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 

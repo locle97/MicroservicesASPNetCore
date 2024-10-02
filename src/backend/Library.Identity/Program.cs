@@ -1,8 +1,11 @@
 
+using System.Text;
 using Library.Identity.Infrastructure;
 using Library.Identity.Infrastructure.Repository;
 using Library.Identity.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Library.Identity;
 
@@ -24,6 +27,28 @@ public class Program
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
+
+        //Jwt configuration starts here
+        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+        var jwtAudience = builder.Configuration.GetSection("Jwt:Audience").Get<string>();
+        var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
+        Console.WriteLine(jwtKey);
+
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         .AddJwtBearer(options =>
+         {
+             options.TokenValidationParameters = new TokenValidationParameters
+             {
+                 ValidateIssuerSigningKey = true,
+                 ValidateAudience = true,
+                 ValidateIssuer = true,
+                 ValidAudience = jwtAudience,
+                 ValidIssuer = jwtIssuer,
+                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+             };
+         });
+        //Jwt configuration ends here
+
         builder.Services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
 
         builder.Services.AddControllers();
@@ -42,6 +67,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
 
