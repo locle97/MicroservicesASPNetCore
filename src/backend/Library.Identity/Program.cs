@@ -1,5 +1,7 @@
 
 using Library.Identity.Infrastructure;
+using Library.Identity.Infrastructure.Repository;
+using Library.Identity.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Identity;
@@ -16,6 +18,10 @@ public class Program
         {
             option.UseSqlServer(connectionString);
         });
+
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ITokenService, TokenService>();
 
         builder.Services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
 
