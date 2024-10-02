@@ -22,6 +22,7 @@ public class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ITokenService, TokenService>();
+        builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
         builder.Services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
 
