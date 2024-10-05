@@ -7,6 +7,8 @@ public class ApplicationDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
 
+    public DbSet<Role> UserRoles { get; set; }
+
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
     }
@@ -25,15 +27,47 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<User>(action =>
+        var adminRole = new Role()
         {
-            action.HasKey("Id");
-            action.HasData(new User()
+            Id = 1,
+            Name = "Admin",
+            Code = "ADM",
+        };
+        var userRole = new Role()
+        {
+            Id = 2,
+            Name = "User",
+            Code = "USR",
+        };
+
+        modelBuilder.Entity<Role>(role =>
+        {
+            role.HasKey("Id");
+            role.HasMany(t => t.Users);
+            role.HasData(adminRole, userRole);
+        });
+
+        modelBuilder.Entity<User>(user =>
+        {
+            user.HasKey("Id");
+            user.HasOne(t => t.Role);
+
+            user.HasData(new User()
             {
                 Id = 1,
                 Username = "admin",
-                Password = "123456",
-                Email = "admin@mailinator.com"
+                Password = "testing@123",
+                Email = "admin@mailinator.com",
+                RoleId = adminRole.Id
+            });
+
+            user.HasData(new User()
+            {
+                Id = 2,
+                Username = "user",
+                Password = "testing@123",
+                Email = "user@mailinator.com",
+                RoleId = userRole.Id
             });
         });
     }

@@ -4,6 +4,7 @@ using Library.Identity.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241005121754_OneUserOneRole")]
+    partial class OneUserOneRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +99,6 @@ namespace Library.Identity.Migrations
                             Id = 1,
                             Email = "admin@mailinator.com",
                             Password = "testing@123",
-                            RoleId = 1,
                             Username = "admin"
                         },
                         new
@@ -104,7 +106,6 @@ namespace Library.Identity.Migrations
                             Id = 2,
                             Email = "user@mailinator.com",
                             Password = "testing@123",
-                            RoleId = 2,
                             Username = "user"
                         });
                 });

@@ -32,7 +32,6 @@ public class Program
         var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
         var jwtAudience = builder.Configuration.GetSection("Jwt:Audience").Get<string>();
         var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
-        Console.WriteLine(jwtKey);
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
          .AddJwtBearer(options =>
@@ -47,9 +46,15 @@ public class Program
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
              };
          });
-        //Jwt configuration ends here
 
-        builder.Services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin", policy =>
+            {
+                policy.RequireRole("ADM");
+            });
+        });
+        //Jwt configuration ends here
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

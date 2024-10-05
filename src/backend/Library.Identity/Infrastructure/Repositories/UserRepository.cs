@@ -17,6 +17,6 @@ public class UserRepository : BaseRepository<ApplicationDbContext, User, int>, I
 
     public async Task<User> GetByUsernamePassword(string username, string password)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(user => user.Username == username && user.Password == password);
+        return await _dbContext.Users.Include(t => t.Role).FirstOrDefaultAsync(user => user.Username == username && user.Password == password);
     }
 }

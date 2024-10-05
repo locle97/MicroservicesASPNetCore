@@ -5,8 +5,8 @@ namespace Library.Identity.Services;
 
 public interface IUserService
 {
-    Task<IEnumerable<User>> GetAllUsers();
-    Task<User> GetUserById(int id);
+    Task<IEnumerable<UserInfoDto>> GetAllUsers();
+    Task<UserInfoDto> GetUserById(int id);
     Task<User> RegisterNewUser(UserRegisterDto user);
     Task<User> UpdateUser(User user);
     Task DeleteUser(int id);

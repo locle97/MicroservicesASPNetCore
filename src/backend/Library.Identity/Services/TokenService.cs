@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Library.Identity.Core;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace Library.Identity.Services;
 
@@ -20,7 +21,6 @@ public class TokenService : ITokenService
         string secretKey = _configuration.GetSection("Jwt").GetValue<string>("SecretKey");
         string issuer = _configuration.GetSection("Jwt").GetValue<string>("Issuer");
         string audience = _configuration.GetSection("Jwt").GetValue<string>("Audience");
-        Console.WriteLine(audience);
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
@@ -35,6 +35,7 @@ public class TokenService : ITokenService
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim("username", user.Username),
+                new Claim(ClaimTypes.Role, user.Role?.Code ?? string.Empty)
             },
             expires: DateTime.Now.AddMinutes(30),
             signingCredentials: credentials

@@ -13,7 +13,11 @@ public class UserService : IUserService
     public UserService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        var config = new MapperConfiguration(cfg => cfg.CreateMap<UserRegisterDto, User>());
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<UserRegisterDto, User>();
+            cfg.CreateMap<User, UserInfoDto>();
+        });
         _mapper = config.CreateMapper();
 
     }
@@ -41,16 +45,18 @@ public class UserService : IUserService
         await _userRepository.Delete(id);
     }
 
-    public async Task<IEnumerable<User>> GetAllUsers()
+    public async Task<IEnumerable<UserInfoDto>> GetAllUsers()
     {
         IEnumerable<User> users = await _userRepository.GetAll();
-        return users;
+        var result = users.Select(user => _mapper.Map<UserInfoDto>(user));
+        return result;
     }
 
-    public async Task<User> GetUserById(int id)
+    public async Task<UserInfoDto> GetUserById(int id)
     {
         User user = await _userRepository.GetById(id);
-        return user;
+        UserInfoDto mappedUser = _mapper.Map<UserInfoDto>(user);
+        return mappedUser;
     }
 
     public async Task<User> UpdateUser(User user)

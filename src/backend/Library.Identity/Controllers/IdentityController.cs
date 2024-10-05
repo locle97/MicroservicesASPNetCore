@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Library.Identity.Core;
 using Library.Identity.Core.Dtos;
 using Library.Identity.Services;
@@ -52,6 +53,13 @@ public class IdentityController : ControllerBase
     [HttpGet("info", Name = "Info")]
     public async Task<IActionResult> UserInfo() 
     {
-        return Ok("User info");
+        var claims = HttpContext.User.Claims;
+        bool isHavingUserId = Int32.TryParse(claims.FirstOrDefault(t => t.Type == "id").Value, out int userId);
+        if(!isHavingUserId)
+            return Unauthorized();
+
+        UserInfoDto info = await _userService.GetUserById(userId);
+
+        return Ok(info);
     }
 }
