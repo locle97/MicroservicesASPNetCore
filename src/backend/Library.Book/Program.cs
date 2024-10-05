@@ -1,4 +1,8 @@
 
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 namespace Library.Book;
 
 public class Program
@@ -7,7 +11,31 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        //Jwt configuration starts here
+        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+        var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
+
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         .AddJwtBearer(options =>
+         {
+             options.TokenValidationParameters = new TokenValidationParameters
+             {
+                 ValidateIssuerSigningKey = true,
+                 ValidateIssuer = true,
+                 ValidateAudience = false,
+                 ValidIssuer = jwtIssuer,
+                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+             };
+         });
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin", policy =>
+            {
+                policy.RequireRole("ADM");
+            });
+        });
+        //Jwt configuration ends here
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,8 +53,8 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
-
 
         app.MapControllers();
 

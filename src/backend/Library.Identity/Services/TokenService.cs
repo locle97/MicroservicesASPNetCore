@@ -20,7 +20,6 @@ public class TokenService : ITokenService
         // Load key
         string secretKey = _configuration.GetSection("Jwt").GetValue<string>("SecretKey");
         string issuer = _configuration.GetSection("Jwt").GetValue<string>("Issuer");
-        string audience = _configuration.GetSection("Jwt").GetValue<string>("Audience");
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
@@ -30,7 +29,6 @@ public class TokenService : ITokenService
         // build token object
         var payload = new JwtSecurityToken(
             issuer: issuer,
-            audience: audience,
             claims: new Claim[]
             {
                 new Claim("id", user.Id.ToString()),

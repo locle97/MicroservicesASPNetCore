@@ -27,10 +27,8 @@ public class Program
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-
         //Jwt configuration starts here
         var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
-        var jwtAudience = builder.Configuration.GetSection("Jwt:Audience").Get<string>();
         var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -39,9 +37,8 @@ public class Program
              options.TokenValidationParameters = new TokenValidationParameters
              {
                  ValidateIssuerSigningKey = true,
-                 ValidateAudience = true,
                  ValidateIssuer = true,
-                 ValidAudience = jwtAudience,
+                 ValidateAudience = false,
                  ValidIssuer = jwtIssuer,
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
              };
@@ -74,7 +71,6 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
-
 
         app.MapControllers();
 
