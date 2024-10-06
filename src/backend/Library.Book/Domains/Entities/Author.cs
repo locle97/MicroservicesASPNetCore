@@ -5,8 +5,6 @@ namespace Library.Book.Domains.Entities
         public int Id { get; set; }
 
         public required string Name { get; set; }
-
-        public BookEntity[] Books { get; set; } = [];
     }
 }
 

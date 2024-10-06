@@ -34,7 +34,6 @@ namespace Library.Book.Infrastructure
             modelBuilder.Entity<Author>(static author =>
             {
                 author.HasKey(static t => t.Id);
-                author.HasMany(static t => t.Books);
                 author.HasData(new Author()
                 {
                     Id = 1,

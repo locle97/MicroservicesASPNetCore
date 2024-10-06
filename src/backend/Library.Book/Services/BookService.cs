@@ -10,7 +10,7 @@ namespace Library.Book.Services
 
         public async Task<IEnumerable<BookEntity>> GetBooks()
         {
-            return await _bookRepository.GetAll();
+            return await _bookRepository.GetBooks();
         }
 
         public async Task<BookEntity> UpdateBook(int id, BookEntity updatedBook)
