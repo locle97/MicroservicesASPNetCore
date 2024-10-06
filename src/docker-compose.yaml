@@ -1,0 +1,15 @@
+services:
+  identity:
+    build: ./backend/Library.Identity/
+    ports: 
+      - "8080:8080"
+    networks:
+      - library
+  book:
+    build: ./backend/Library.Book/
+    ports: 
+      - "8081:8080"
+    networks:
+      - library
+networks:
+  library:
