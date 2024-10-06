@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.BaseAuthentication", "Library.BaseAuthentication\Library.BaseAuthentication.csproj", "{2ED8E7D4-EC22-486D-99E6-1E8481D87637}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Book", "Library.Book\Library.Book.csproj", "{9D3D36BD-B4F5-40D6-8801-79517340556D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Identity", "Library.Identity\Library.Identity.csproj", "{07B22EA0-E85C-4468-BF95-6A4032880B0F}"
