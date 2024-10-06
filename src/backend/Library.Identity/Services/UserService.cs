@@ -67,7 +67,8 @@ public class UserService : IUserService
 
     public async Task<User> Login(string username, string password)
     {
-        User dbUser = await _userRepository.GetByUsernamePassword(username, password);
+        User dbUser = await _userRepository.GetByUsernamePassword(username,
+                                                                  password);
         return dbUser;
     }
 }

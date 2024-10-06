@@ -21,7 +21,9 @@ namespace Library.Book.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpPost("{id}", Name = "Update Book")]
-        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookEntity updatedBook)
+        public async Task<IActionResult> UpdateBook(
+            int id,
+            [FromBody] BookEntity updatedBook)
         {
             try
             {

@@ -1,8 +1,7 @@
+using System.Text;
 using Library.Identity.Infrastructure;
 using Library.Identity.Infrastructure.Repository;
 using Library.Identity.Services;
-
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +14,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        string connectionString = builder.Configuration.GetConnectionString("Default")!;
+        string connectionString = builder.Configuration
+                                        .GetConnectionString("Default")!;
 
         // Add services to the container.
         builder.Services.AddDbContext<ApplicationDbContext>(option =>
@@ -29,15 +29,18 @@ public class Program
         builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
         //Jwt configuration starts here
-        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
-        var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
+        var jwtIssuer = builder.Configuration
+                                .GetSection("Jwt:Issuer").Get<string>();
+        var jwtKey = builder.Configuration
+                                .GetSection("Jwt:SecretKey").Get<string>();
 
         builder.Services.AddJwtAuthentication(jwtKey, jwtIssuer);
         builder.Services.AddPolicies();
         //Jwt configuration ends here
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        // Learn more about configuring Swagger/OpenAPI at 
+        // https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(opt =>
             {
@@ -102,13 +105,15 @@ public static class JwtAuthenticationExtension
         _ = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
+                options.TokenValidationParameters =
+                new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateAudience = false,
                     ValidIssuer = jwtIssuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtSecretKey))
                 };
             });
 

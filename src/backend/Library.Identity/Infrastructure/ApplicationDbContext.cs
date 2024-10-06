@@ -18,10 +18,16 @@ public class ApplicationDbContext : DbContext
     }
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(
+            DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Password=sa@123456;Database=Identity;Trusted_Connection=False;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer(@"Server=localhost;
+                                        User Id=sa;
+                                        Password=sa@123456;
+                                        Database=Identity;
+                                        Trusted_Connection=False;
+                                        TrustServerCertificate=True;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

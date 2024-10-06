@@ -14,7 +14,8 @@ public class IdentityController : ControllerBase
     private readonly IUserService _userService;
     private readonly ITokenService _tokenService;
 
-    public IdentityController(IUserService userService, ITokenService tokenService)
+    public IdentityController(IUserService userService,
+                              ITokenService tokenService)
     {
         _userService = userService;
         _tokenService = tokenService;
@@ -27,7 +28,9 @@ public class IdentityController : ControllerBase
             return BadRequest(ModelState);
 
         // Return Bad request if user exists
-        bool isUserExisted = await _userService.CheckUserExistByEmail(userDto.Email);
+        bool isUserExisted = 
+            await _userService.CheckUserExistByEmail(userDto.Email);
+
         if(isUserExisted)
             return BadRequest("User existed");
 
@@ -41,7 +44,8 @@ public class IdentityController : ControllerBase
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        User user = await _userService.Login(loginDto.Username, loginDto.Password);
+        User user = await _userService.Login(loginDto.Username, 
+                                            loginDto.Password);
         if(user is null)
             return Unauthorized();
 
@@ -54,7 +58,8 @@ public class IdentityController : ControllerBase
     public async Task<IActionResult> UserInfo() 
     {
         var claims = HttpContext.User.Claims;
-        bool isHavingUserId = Int32.TryParse(claims.FirstOrDefault(t => t.Type == "id").Value, out int userId);
+        string userIdString = claims.FirstOrDefault(t => t.Type == "id").Value;
+        bool isHavingUserId = int.TryParse(userIdString, out int userId);
         if(!isHavingUserId)
             return Unauthorized();
 

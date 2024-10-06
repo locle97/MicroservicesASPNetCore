@@ -1,7 +1,3 @@
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -16,14 +12,18 @@ namespace OcelotBasic
             .UseContentRoot(Directory.GetCurrentDirectory())
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
-                config
-                    .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                string appSettingEnvPath = $"appsettings.{hostingContext
+                                            .HostingEnvironment
+                                            .EnvironmentName}.json";
+                config.SetBasePath(hostingContext.HostingEnvironment
+                                                .ContentRootPath)
                     .AddJsonFile("appsettings.json", true, true)
-                    .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                    .AddJsonFile(appSettingEnvPath, true, true)
                     .AddJsonFile("ocelot.json")
                     .AddEnvironmentVariables();
             })
-            .ConfigureServices(s => {
+            .ConfigureServices(s =>
+            {
                 s.AddOcelot();
             })
             .ConfigureLogging((hostingContext, logging) =>
