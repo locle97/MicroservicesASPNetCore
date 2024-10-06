@@ -1,4 +1,6 @@
 using Library.BaseAuthentication;
+using Library.Book.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Book;
 
@@ -7,6 +9,14 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        string connectionString = builder.Configuration.GetConnectionString("Default") ?? string.Empty;
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(connectionString);
+
+        // Application Db Context config
+        builder.Services.AddDbContext<ApplicationDbContext>(optionsAction =>
+        {
+            optionsAction.UseSqlServer(connectionString);
+        });
 
         //Jwt configuration starts here
         var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
