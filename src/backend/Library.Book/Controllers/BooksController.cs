@@ -1,3 +1,6 @@
+using Library.Book.Domains.Entities;
+using Library.Book.Domains.Exceptions;
+using Library.Book.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,24 +8,33 @@ namespace Library.Book.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BooksController : ControllerBase
+    public class BooksController(IBookService bookService) : ControllerBase
     {
-        public BooksController()
-        {
-        }
+        private readonly IBookService _bookService = bookService;
 
         [HttpGet(Name = "Get Books")]
         public async Task<IActionResult> GetBooks()
         {
-            string[] books = ["A", "B"];
+            IEnumerable<BookEntity> books = await _bookService.GetBooks();
             return Ok(books);
         }
 
         [Authorize(Policy = "Admin")]
-        [HttpPost(Name = "Update Book")]
-        public async Task<IActionResult> UpdateBook(int id, string name)
+        [HttpPost("{id}", Name = "Update Book")]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookEntity updatedBook)
         {
-            return Ok(new { id, name });
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                BookEntity dbBook = await _bookService.UpdateBook(id, updatedBook);
+                return Ok(dbBook);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

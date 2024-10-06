@@ -1,5 +1,7 @@
 using Library.BaseAuthentication;
 using Library.Book.Infrastructure;
+using Library.Book.Infrastructure.Repositories;
+using Library.Book.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Book;
@@ -17,6 +19,10 @@ public class Program
         {
             optionsAction.UseSqlServer(connectionString);
         });
+
+        // Add scope for repositories and services
+        builder.Services.AddScoped<IBookRepository, BookRepository>();
+        builder.Services.AddScoped<IBookService, BookService>();
 
         //Jwt configuration starts here
         var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
