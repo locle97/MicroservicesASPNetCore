@@ -16,11 +16,6 @@ public static class JwtAuthenticationExtension
         ArgumentNullException.ThrowIfNullOrEmpty(jwtSecretKey);
         ArgumentNullException.ThrowIfNullOrEmpty(jwtIssuer);
 
-        var keyByteCount = Encoding.UTF8.GetByteCount(jwtSecretKey);
-        if (keyByteCount < 256)
-            throw new ArgumentException(
-                    $"Jwt secret key is required 256, your key is just {keyByteCount}");
-
         // Jwt configuration
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -35,6 +30,12 @@ public static class JwtAuthenticationExtension
                 };
             });
 
+        return services;
+    }
+
+    public static IServiceCollection AddPolicies(
+            this IServiceCollection services)
+    {
         // Add policy
         services.AddAuthorization(options =>
         {

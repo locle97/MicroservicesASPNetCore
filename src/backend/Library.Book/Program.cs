@@ -1,6 +1,4 @@
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+using Library.BaseAuthentication;
 
 namespace Library.Book;
 
@@ -11,29 +9,11 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         //Jwt configuration starts here
-        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
         var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
+        var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
 
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = false,
-                ValidIssuer = jwtIssuer,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
-            };
-        });
-
-        builder.Services.AddAuthorization(options =>
-        {
-            options.AddPolicy("Admin", policy =>
-            {
-                policy.RequireRole("ADM");
-            });
-        });
+        builder.Services.AddJwtAuthentication(jwtKey, jwtIssuer);
+        builder.Services.AddPolicies();
         //Jwt configuration ends here
 
         builder.Services.AddControllers();
