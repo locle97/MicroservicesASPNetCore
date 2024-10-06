@@ -3,44 +3,41 @@ using System.Security.Claims;
 using System.Text;
 using Library.Identity.Core;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 
-namespace Library.Identity.Services;
-
-public class TokenService : ITokenService
+namespace Library.Identity.Services
 {
-    private readonly IConfiguration _configuration;
-    public TokenService(IConfiguration configuration)
+    public class TokenService(IConfiguration configuration) : ITokenService
     {
-        _configuration = configuration;
+        private readonly IConfiguration _configuration = configuration;
+
+        public string GenerateToken(User user)
+        {
+            // Load key
+            string secretKey = _configuration.GetSection("Jwt").GetValue<string>("SecretKey");
+            string issuer = _configuration.GetSection("Jwt").GetValue<string>("Issuer");
+
+            SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(secretKey));
+
+            // Define credentials
+            SigningCredentials credentials = new(key, SecurityAlgorithms.HmacSha256);
+
+            // build token object
+            int id = user.Id;
+            JwtSecurityToken payload = new(
+                issuer: issuer,
+                claims:
+                [
+                    new Claim("id", id.ToString()),
+                    new Claim("username", user.Username),
+                    new Claim(ClaimTypes.Role, user.Role?.Code ?? string.Empty)
+                ],
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials
+            );
+
+            // Generate
+            return new JwtSecurityTokenHandler().WriteToken(payload);
+        }
     }
 
-    public string GenerateToken(User user)
-    {
-        // Load key
-        string secretKey = _configuration.GetSection("Jwt").GetValue<string>("SecretKey");
-        string issuer = _configuration.GetSection("Jwt").GetValue<string>("Issuer");
-
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-        // Define credentials
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        // build token object
-        var payload = new JwtSecurityToken(
-            issuer: issuer,
-            claims: new Claim[]
-            {
-                new Claim("id", user.Id.ToString()),
-                new Claim("username", user.Username),
-                new Claim(ClaimTypes.Role, user.Role?.Code ?? string.Empty)
-            },
-            expires: DateTime.Now.AddMinutes(30),
-            signingCredentials: credentials
-        );
-
-        // Generate
-        return new JwtSecurityTokenHandler().WriteToken(payload);
-    }
 }
-
